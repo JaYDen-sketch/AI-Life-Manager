@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>git push -u origin main
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Life Manager</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Today</p>
+          <h1>AI Life Manager</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="date-chip" id="todayLabel"></div>
+          <button class="icon-button" id="resetDemoButton" title="Reset sample day" aria-label="Reset sample day">R</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="control-panel" aria-label="Planner controls">
+          <div class="panel-heading">
+            <h2>Energy</h2>
+            <span id="energyWord">Steady</span>
+          </div>
+
+          <div class="energy-picker" id="energyPicker" role="radiogroup" aria-label="Current energy">
+            <button class="energy-dot" data-energy="1" role="radio" aria-checked="false" title="Low energy">1</button>
+            <button class="energy-dot" data-energy="2" role="radio" aria-checked="false" title="Soft energy">2</button>
+            <button class="energy-dot" data-energy="3" role="radio" aria-checked="true" title="Steady energy">3</button>
+            <button class="energy-dot" data-energy="4" role="radio" aria-checked="false" title="Strong energy">4</button>
+            <button class="energy-dot" data-energy="5" role="radio" aria-checked="false" title="Peak energy">5</button>
+          </div>
+
+          <div class="field-grid two">
+            <label>
+              Wake
+              <input id="wakeTime" type="time" value="07:00">
+            </label>
+            <label>
+              Sleep
+              <input id="sleepTime" type="time" value="22:30">
+            </label>
+          </div>
+
+          <div class="field-grid two">
+            <label>
+              Sleep last night
+              <input id="sleepHours" type="number" min="0" max="14" step="0.5" value="7">
+            </label>
+            <label>
+              Focus style
+              <select id="focusStyle">
+                <option value="balanced">Balanced</option>
+                <option value="deep">Deep work</option>
+                <option value="gentle">Gentle</option>
+              </select>
+            </label>
+          </div>
+
+          <form id="taskForm" class="task-form">
+            <h2>Task</h2>
+            <label>
+              Name
+              <input id="taskName" type="text" autocomplete="off" placeholder="Write proposal" required>
+            </label>
+            <div class="field-grid two">
+              <label>
+                Deadline
+                <input id="taskDeadline" type="time" required>
+              </label>
+              <label>
+                Minutes
+                <input id="taskMinutes" type="number" min="10" max="240" step="5" value="45" required>
+              </label>
+            </div>
+            <div class="field-grid two">
+              <label>
+                Energy need
+                <select id="taskEnergy">
+                  <option value="1">Light</option>
+                  <option value="2">Medium</option>
+                  <option value="3">High</option>
+                </select>
+              </label>
+              <label>
+                Importance
+                <select id="taskImportance">
+                  <option value="1">Low</option>
+                  <option value="2">Normal</option>
+                  <option value="3" selected>Important</option>
+                  <option value="4">Critical</option>
+                </select>
+              </label>
+            </div>
+            <button class="primary-button" type="submit"><span>+</span> Add task</button>
+          </form>
+
+          <div class="panel-heading compact">
+            <h2>Care rhythm</h2>
+            <button class="text-button" id="notificationButton" type="button">Enable reminders</button>
+          </div>
+          <div class="care-toggles" id="careToggles"></div>
+        </section>
+
+        <section class="day-board" aria-label="Daily plan">
+          <div class="board-toolbar">
+            <div>
+              <p class="eyebrow">Plan</p>
+              <h2 id="planTitle">Energy-shaped day</h2>
+            </div>
+            <div class="toolbar-buttons">
+              <button class="text-button" id="aiReplanButton" type="button">AI replan</button>
+              <button class="icon-button" id="replanButton" title="Replan" aria-label="Replan">R</button>
+              <button class="icon-button" id="clearDoneButton" title="Clear completed" aria-label="Clear completed">D</button>
+            </div>
+          </div>
+          <div class="ai-status" id="aiStatus" role="status">Local planner ready</div>
+          <div class="progress-wrap" aria-label="Day progress">
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span id="progressLabel">0%</span>
+          </div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <aside class="insight-panel" aria-label="Planner insights">
+          <section class="insight-block">
+            <div class="panel-heading">
+              <h2>Next</h2>
+              <span id="nextTime"></span>
+            </div>
+            <div id="nextCard" class="next-card"></div>
+            <button class="primary-button full" id="completeNextButton" type="button">Mark done</button>
+          </section>
+
+          <section class="insight-block">
+            <h2>Queue</h2>
+            <div class="task-list" id="taskList"></div>
+          </section>
+
+          <section class="insight-block">
+            <h2>Signals</h2>
+            <div class="metrics" id="metrics"></div>
+          </section>
+
+          <section class="insight-block">
+            <h2>AI Coach</h2>
+            <div class="coach-card" id="coachCard"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <template id="careToggleTemplate">
+      <label class="toggle-row">
+        <span class="toggle-copy"></span>
+        <input type="checkbox" checked>
+      </label>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
